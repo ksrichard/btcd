@@ -803,7 +803,9 @@ func (c *Client) handleSendPostMessage(jReq *jsonRequest) {
 			jReq.responseChan <- &Response{result: nil, err: err}
 			return
 		}
-		httpReq.SetBasicAuth(user, pass)
+		if !c.config.CustomHeaderAuth {
+			httpReq.SetBasicAuth(user, pass)
+		}
 
 		httpResponse, err = c.httpClient.Do(httpReq)
 
@@ -1217,6 +1219,9 @@ type ConnConfig struct {
 
 	// Pass is the passphrase to use to authenticate to the RPC server.
 	Pass string
+
+	// When custom HTTP header-based auth is used, do not use User and Pass
+	CustomHeaderAuth bool
 
 	// CookiePath is the path to a cookie file containing the username and
 	// passphrase to use to authenticate to the RPC server.  It is used
