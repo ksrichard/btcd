@@ -1,4 +1,4 @@
-module github.com/ksrichard/btcd
+module github.com/btcsuite/btcd
 
 require (
 	github.com/btcsuite/btcd/btcec/v2 v2.3.5
